@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent: #6366f1;
+  --color-accent-light: #818cf8;
+  --color-surface: #111113;
+  --color-surface-light: #1a1a1f;
+  --color-border: #27272a;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #09090b;
+  color: #fafafa;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+@keyframes pulse-dot {
+  0%, 80%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+}
+.thinking-dot { animation: pulse-dot 1.4s infinite ease-in-out; }
+.thinking-dot:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.4s ease-out forwards; }
+
+/* Step cards */
+.step-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.step-card h2, .step-card h3 {
+  color: var(--color-accent-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.step-card p {
+  color: #a1a1aa;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.step-card strong { color: #fafafa; }
+.step-card ul, .step-card ol {
+  color: #a1a1aa;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding-left: 1.25rem;
+}
+.step-card li { margin-bottom: 0.25rem; }
+
+/* Transformation card */
+.transform-card {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16162a 100%);
+  border: 1px solid #6366f1/30;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 0.5rem;
 }
