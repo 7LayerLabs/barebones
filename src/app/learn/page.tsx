@@ -1,70 +1,5 @@
 import Link from "next/link";
 
-const people: {
-  name: string;
-  role: string;
-  quote: string;
-  how: string;
-  color: string;
-}[] = [
-  {
-    name: "Elon Musk",
-    role: "Tesla, SpaceX, Neuralink",
-    quote:
-      "I think it's important to reason from first principles rather than by analogy. The normal way we conduct our lives is we reason by analogy. We are doing this because it's like something else that was done, or it is like what other people are doing. With first principles, you boil things down to the most fundamental truths and then reason up from there.",
-    how: "When everyone said batteries were too expensive for electric cars, Musk didn't accept it. He broke down a battery to its raw materials — cobalt, nickel, lithium, carbon, separators, steel casing — and found the commodity cost was only $80/kWh on the London Metal Exchange. The rest was markup and convention. Tesla built the Gigafactory to assemble cells from raw materials, cutting costs by over 70%. The same thinking drove SpaceX: instead of accepting that rockets cost $60M, he asked what a rocket is actually made of (aluminum, titanium, copper, carbon fiber) and found the raw material cost was about 2% of the sticker price. So he built rockets in-house.",
-    color: "text-sky-400",
-  },
-  {
-    name: "Aristotle",
-    role: "Philosopher, 384-322 BC",
-    quote:
-      "In every systematic inquiry where there are first principles, or causes, or elements, knowledge and science result from acquiring knowledge of these.",
-    how: "Aristotle literally coined the concept over 2,300 years ago. He defined a first principle as \"the first basis from which a thing is known\" — the foundational proposition that cannot be deduced from any other proposition. Every field of science traces back to this idea: don't accept inherited explanations, find the bedrock truths yourself. His method was the origin of the scientific method itself.",
-    color: "text-amber-400",
-  },
-  {
-    name: "Steve Jobs",
-    role: "Apple",
-    quote:
-      "It's really hard to design products by focus groups. A lot of times, people don't know what they want until you show it to them.",
-    how: "When the music industry was collapsing under piracy, conventional thinking said to fight it with DRM and lawsuits. Jobs asked: what do people actually want? They want any song, instantly, for a fair price. That became iTunes — 99 cents a song, no subscription required. The same approach produced the iPhone. Everyone in mobile was optimizing physical keyboards. Jobs asked: what is a phone, fundamentally? A screen you interact with. So he removed every button except one.",
-    color: "text-rose-400",
-  },
-  {
-    name: "Jeff Bezos",
-    role: "Amazon",
-    quote:
-      "I very frequently get the question: 'What's going to change in the next 10 years?' I almost never get the question: 'What's not going to change in the next 10 years?' And I submit to you that the second question is actually the more important of the two.",
-    how: "Bezos built Amazon around truths that would never change: people will always want lower prices, faster delivery, and more selection. Every major Amazon bet — AWS, Prime, Fulfillment Centers, Marketplace — traces back to these unchanging fundamentals. When launching AWS, the conventional wisdom was that tech companies shouldn't sell infrastructure. Bezos asked: what do developers actually need? Compute and storage, on demand, without buying servers. That first principle created a $90B/year business.",
-    color: "text-emerald-400",
-  },
-  {
-    name: "James Dyson",
-    role: "Dyson",
-    quote:
-      "I made 5,127 prototypes of my vacuum before I got it right. There were 5,126 failures. But I learned from each one.",
-    how: "Every vacuum manufacturer accepted that bags were how vacuums worked. Dyson asked the fundamental question: what is a vacuum actually doing? Separating dirt from air. Do you need a bag for that? No — cyclonic separation (used in sawmills) does it better without clogging. The industry had been optimizing bags for decades when the real answer was to eliminate them entirely. The same first-principles approach led Dyson to replace fan blades with the Bladeless Fan — questioning the assumption that moving air requires visible blades.",
-    color: "text-violet-400",
-  },
-  {
-    name: "The Wright Brothers",
-    role: "Aviation Pioneers",
-    quote:
-      "If we worked on the assumption that what is accepted as true really is true, then there would be little hope for advance.",
-    how: "While competitors copied bird-like wing flapping or relied on existing lift tables (which were wrong), Wilbur and Orville built their own wind tunnel and tested 200+ wing shapes from scratch. They rejected Otto Lilienthal's widely-accepted aerodynamic data and generated their own. Their first-principles approach — questioning the established \"facts\" of flight — is why two bicycle mechanics beat teams of well-funded engineers.",
-    color: "text-orange-400",
-  },
-  {
-    name: "Charlie Munger",
-    role: "Berkshire Hathaway",
-    quote:
-      "I think the best single thing you could do is to take all the big ideas from all the big disciplines and master them, so you have a general framework for thinking.",
-    how: "Munger built his entire investment philosophy around what he calls \"mental models\" — first principles from physics, biology, psychology, and economics applied to business. Instead of following market trends or analyst reports, he asks: what are the fundamental economics of this business? What is the durable competitive advantage? This approach helped build Berkshire Hathaway into a $900B+ company by ignoring Wall Street consensus and reasoning from fundamentals.",
-    color: "text-cyan-400",
-  },
-];
-
 const principles: { title: string; description: string; color: string }[] = [
   {
     title: "Question every assumption",
@@ -120,15 +55,15 @@ export default function LearnPage() {
         {/* Hero */}
         <section className="space-y-3 sm:space-y-4 max-w-2xl">
           <p className="text-indigo-400 text-xs font-mono uppercase tracking-widest">
-            The Method
+            The Theory
           </p>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.1]">
             First Principles Theory
           </h1>
           <p className="text-zinc-400 text-sm sm:text-lg leading-relaxed">
-            The most powerful problem-solving method in history. Used by the greatest inventors,
-            entrepreneurs, and scientists to see what everyone else misses — by refusing to accept
-            what everyone else assumes.
+            A 2,300-year-old method for seeing what everyone else misses.
+            Not a framework. Not a buzzword. A discipline — the discipline to
+            refuse what everyone else assumes and reason from what is provably true.
           </p>
         </section>
 
@@ -163,9 +98,10 @@ export default function LearnPage() {
                 or contrarian, but because it&apos;s built on truth instead of convention.
               </p>
               <p>
-                This is the method that made batteries affordable, put rockets in space for 1/10th
-                the cost, created the smartphone, and disrupted entire industries. It&apos;s not magic
-                — it&apos;s discipline. The discipline to question what everyone else takes for granted.
+                The concept was defined by Aristotle over 2,300 years ago and has been
+                applied by scientists, engineers, and entrepreneurs ever since. Today, it&apos;s
+                most visibly championed by Elon Musk, who credits it as the foundation
+                behind Tesla, SpaceX, and every company he&apos;s built.
               </p>
             </div>
           </div>
@@ -201,43 +137,93 @@ export default function LearnPage() {
           </div>
         </section>
 
-        {/* People */}
+        {/* Origin — Aristotle */}
         <section className="space-y-6">
           <div className="space-y-2">
             <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
-              Who Uses It
+              The Origin
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
-              The builders who changed everything
+              Aristotle defined it 2,300 years ago
             </h2>
-            <p className="text-zinc-500 text-sm max-w-xl">
-              First principles theory isn&apos;t a Silicon Valley buzzword. It&apos;s a 2,300-year-old
-              method used by the most consequential thinkers in history.
+          </div>
+          <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-5 sm:p-6 space-y-4">
+            <div>
+              <h3 className="text-lg font-bold text-amber-400">Aristotle</h3>
+              <p className="text-zinc-600 text-xs font-mono mt-0.5">Philosopher, 384&ndash;322 BC</p>
+            </div>
+            <blockquote className="border-l-2 border-zinc-700 pl-4 text-zinc-500 text-sm italic leading-relaxed">
+              &quot;In every systematic inquiry where there are first principles, or causes, or elements,
+              knowledge and science result from acquiring knowledge of these.&quot;
+            </blockquote>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              In his work <em className="text-zinc-300">Physics</em>, Aristotle defined a first principle as
+              &quot;the first basis from which a thing is known&quot; — the foundational truth that cannot be
+              deduced from any other proposition. He argued that real understanding only comes from
+              identifying these bedrock truths, not from accepting inherited explanations. This idea
+              became the foundation of the scientific method itself: don&apos;t trust convention, find
+              what&apos;s actually true, and build from there.
             </p>
           </div>
-          <div className="space-y-4">
-            {people.map((person, i) => (
-              <div
-                key={i}
-                className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-5 space-y-4"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className={`text-lg font-bold ${person.color}`}>{person.name}</h3>
-                    <p className="text-zinc-600 text-xs font-mono mt-0.5">{person.role}</p>
-                  </div>
-                </div>
-                <blockquote className="border-l-2 border-zinc-700 pl-4 text-zinc-500 text-sm italic leading-relaxed">
-                  &quot;{person.quote.replace(/^"|"$/g, "")}&quot;
-                </blockquote>
-                <div className="space-y-1.5">
-                  <p className={`text-[10px] font-mono uppercase tracking-widest ${person.color}`}>
-                    How they used it
-                  </p>
-                  <p className="text-zinc-400 text-sm leading-relaxed">{person.how}</p>
-                </div>
+        </section>
+
+        {/* Modern Champion — Elon Musk */}
+        <section className="space-y-6">
+          <div className="space-y-2">
+            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+              The Modern Champion
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight text-white">
+              Elon Musk built his entire empire on it
+            </h2>
+          </div>
+          <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-5 sm:p-6 space-y-5">
+            <div>
+              <h3 className="text-lg font-bold text-sky-400">Elon Musk</h3>
+              <p className="text-zinc-600 text-xs font-mono mt-0.5">Tesla, SpaceX, Neuralink</p>
+            </div>
+            <blockquote className="border-l-2 border-zinc-700 pl-4 text-zinc-500 text-sm italic leading-relaxed">
+              &quot;I think it&apos;s important to reason from first principles rather than by analogy.
+              The normal way we conduct our lives is we reason by analogy. We are doing this because
+              it&apos;s like something else that was done, or it is like what other people are doing.
+              With first principles, you boil things down to the most fundamental truths and then
+              reason up from there.&quot;
+            </blockquote>
+            <p className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">
+              Source: TED Talk with Chris Anderson, 2013
+            </p>
+
+            <div className="space-y-4">
+              <div className="bg-sky-500/5 border border-sky-500/15 rounded-lg p-4 space-y-2">
+                <p className="text-sky-400 text-xs font-mono font-bold uppercase tracking-widest">Tesla — Batteries</p>
+                <p className="text-zinc-400 text-sm leading-relaxed">
+                  When the entire industry said batteries were too expensive for electric cars to be viable,
+                  Musk didn&apos;t accept it. In a 2012 interview with Kevin Rose, he described breaking a battery
+                  down to its raw materials — cobalt, nickel, lithium, carbon, separators, steel casing — and
+                  checking their commodity prices on the London Metal Exchange. The materials cost roughly $80
+                  per kWh. The rest was markup and convention. Tesla built the Gigafactory to assemble cells
+                  directly from raw materials, dramatically reducing costs.
+                </p>
               </div>
-            ))}
+
+              <div className="bg-sky-500/5 border border-sky-500/15 rounded-lg p-4 space-y-2">
+                <p className="text-sky-400 text-xs font-mono font-bold uppercase tracking-widest">SpaceX — Rockets</p>
+                <p className="text-zinc-400 text-sm leading-relaxed">
+                  Instead of accepting that launching a rocket costs $65 million (the industry standard at the
+                  time), Musk asked what a rocket is actually made of. Aerospace-grade aluminum alloys, titanium,
+                  copper, carbon fiber. He calculated the raw material cost was roughly 2% of the price of a
+                  finished rocket. The other 98% was inefficiency, middlemen, and convention. So SpaceX built
+                  rockets in-house and made them reusable — something the industry said was impossible.
+                </p>
+              </div>
+            </div>
+
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              Musk has consistently cited first principles theory as the single most important
+              framework behind every company he&apos;s built. Not market research, not competitive
+              analysis, not trend-following — stripping a problem to its provable truths and
+              rebuilding from there.
+            </p>
           </div>
         </section>
 
@@ -248,7 +234,7 @@ export default function LearnPage() {
               The Difference
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
-              Analogy thinking vs. First principles
+              Analogy vs. First principles
             </h2>
           </div>
           <div className="space-y-3">
@@ -258,20 +244,16 @@ export default function LearnPage() {
                 fp: "\"What are batteries made of? What do those materials cost? Why is there a gap?\"",
               },
               {
-                analogy: "\"Phones need keyboards because all phones have keyboards.\"",
-                fp: "\"What is a phone for? Making calls and accessing information. What's the best interface for that?\"",
-              },
-              {
                 analogy: "\"Rockets are disposable because that's how the industry works.\"",
                 fp: "\"Is there a physical law that says a rocket can't land and fly again? No? Then let's land it.\"",
               },
               {
-                analogy: "\"Vacuums need bags because that's what vacuums use.\"",
-                fp: "\"What's the goal? Separate dirt from air. What's the best way to do that, ignoring all existing products?\"",
+                analogy: "\"We need a better taxi app.\"",
+                fp: "\"People need to get from A to B reliably. What's the actual constraint? Supply of drivers. Solve that.\"",
               },
               {
-                analogy: "\"People want a faster horse.\"",
-                fp: "\"People want to get from A to B quickly and comfortably. What's the best way to do that?\"",
+                analogy: "\"Our product needs more features to compete.\"",
+                fp: "\"What does the user actually need to accomplish? Strip everything else away.\"",
               },
             ].map((row, i) => (
               <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-2">

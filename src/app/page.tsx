@@ -470,7 +470,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                   disabled={!idea.trim() || loading}
                   className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-medium py-2.5 rounded-xl disabled:opacity-20 disabled:cursor-not-allowed transition-all text-base"
                 >
-                  Strip it down
+                  Break it down
                 </button>
               </div>
 
@@ -535,7 +535,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                       disabled={!editText.trim()}
                       className="px-3 py-1.5 text-xs bg-indigo-500 hover:bg-indigo-400 text-white rounded-lg disabled:opacity-20 transition-all"
                     >
-                      Strip it again
+                      Break it down again
                     </button>
                     <button
                       onClick={() => setEditing(false)}
@@ -553,7 +553,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
             {/* Loading state — show when loading and no parsed sections yet */}
             {loading && parseSteps(result).length === 0 && (
               <div className="flex items-center justify-center gap-1.5 py-12 text-zinc-500">
-                <span className="text-xs">Stripping it down</span>
+                <span className="text-xs">Breaking it down</span>
                 <span className="thinking-dot text-indigo-400">.</span>
                 <span className="thinking-dot text-indigo-400">.</span>
                 <span className="thinking-dot text-indigo-400">.</span>
@@ -798,7 +798,7 @@ function ResultCards({
               </div>
               {isRebuild && isSectionComplete && (
                 <span className="text-[10px] text-zinc-600 font-mono">
-                  Click to strip down
+                  Click to break down
                 </span>
               )}
               {!isSectionComplete && (
@@ -831,7 +831,7 @@ function ResultCards({
                 onClick={() => onDecomposeRebuild(afterMatch[1].replace(/\*\*/g, "").trim())}
                 className="mt-3 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest bg-indigo-500/10 border border-indigo-500/20 rounded-lg hover:bg-indigo-500/20 transition-colors text-indigo-400"
               >
-                Strip the refined idea
+                Break down the refined idea
               </button>
             )}
           </div>
@@ -839,7 +839,7 @@ function ResultCards({
       })}
       {loading && sections.length === 0 && (
         <div className="flex items-center gap-1.5 py-3 text-zinc-500">
-          <span className="text-xs">Stripping it down</span>
+          <span className="text-xs">Breaking it down</span>
           <span className="thinking-dot text-indigo-400">.</span>
           <span className="thinking-dot text-indigo-400">.</span>
           <span className="thinking-dot text-indigo-400">.</span>
@@ -1167,7 +1167,7 @@ function RenderRebuilds({
                   }}
                   className={`mt-2.5 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest ${color.btnBg} border ${color.btnBorder} rounded-lg ${color.btnHover} transition-colors ${color.accent}`}
                 >
-                  Strip this down →
+                  Break this down →
                 </button>
               </div>
             )}
