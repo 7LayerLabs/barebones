@@ -296,7 +296,7 @@ export default function StacksPage() {
   return (
     <main className="min-h-screen flex flex-col bg-[#09090b]">
       {/* Header */}
-      <header className="border-b border-zinc-800/80 px-6 py-3.5 backdrop-blur-sm bg-[#09090b]/80 sticky top-0 z-10">
+      <header className="border-b border-zinc-800/80 px-4 sm:px-6 py-3.5 backdrop-blur-sm bg-[#09090b]/80 sticky top-0 z-10">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
             <div className="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center">
@@ -316,16 +316,16 @@ export default function StacksPage() {
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto w-full px-5 py-12 space-y-20">
+      <div className="max-w-4xl mx-auto w-full px-4 sm:px-5 py-8 sm:py-12 space-y-12 sm:space-y-20">
         {/* Hero */}
-        <section className="space-y-4 max-w-2xl">
+        <section className="space-y-3 sm:space-y-4 max-w-2xl">
           <p className="text-indigo-400 text-xs font-mono uppercase tracking-widest">
             Tech Stacks
           </p>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.1]">
             Pick the right tools for what you&apos;re building.
           </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed">
+          <p className="text-zinc-400 text-sm sm:text-lg leading-relaxed">
             Not every project needs the same stack. A real-time multiplayer app has no business on HTMX.
             A landing page with a waitlist doesn&apos;t need Convex. Here&apos;s when to use what.
           </p>

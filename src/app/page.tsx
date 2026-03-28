@@ -362,40 +362,40 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
   return (
     <main className="min-h-screen flex flex-col bg-[#09090b]">
       {/* Header */}
-      <header className="border-b border-zinc-800/80 px-6 py-3.5 backdrop-blur-sm bg-[#09090b]/80 sticky top-0 z-10">
+      <header className="border-b border-zinc-800/80 px-4 sm:px-6 py-3.5 backdrop-blur-sm bg-[#09090b]/80 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
             <div className="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M7 1L1 13h12L7 1z" stroke="white" strokeWidth="1.5" strokeLinejoin="round" fill="none"/>
                 <line x1="7" y1="5" x2="7" y2="9" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </div>
-            <span className="text-sm font-semibold tracking-tight text-zinc-200">barebone</span>
+            <span className="text-sm font-semibold tracking-tight text-zinc-200 hidden sm:inline">barebone</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-end">
             <Link
               href="/learn"
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-[11px] sm:text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
             >
               What is this?
             </Link>
             <Link
               href="/stacks"
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+              className="text-[11px] sm:text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
             >
-              Tech Stacks
+              Stacks
             </Link>
             {history.length > 0 && (
               <button
                 onClick={() => setShowHistory(!showHistory)}
-                className={`text-xs transition-colors ${showHistory ? "text-indigo-400" : "text-zinc-500 hover:text-zinc-300"}`}
+                className={`text-[11px] sm:text-xs transition-colors ${showHistory ? "text-indigo-400" : "text-zinc-500 hover:text-zinc-300"}`}
               >
                 History ({history.length})
               </button>
             )}
             {hasResult && (
-              <button onClick={reset} className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
+              <button onClick={reset} className="text-[11px] sm:text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
                 New idea
               </button>
             )}
@@ -439,16 +439,16 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
       )}
 
       {/* Content */}
-      <div className="flex-1 flex flex-col max-w-3xl mx-auto w-full px-5">
+      <div className="flex-1 flex flex-col max-w-3xl mx-auto w-full px-4 sm:px-5">
         {!hasResult ? (
-          <div className="flex-1 flex flex-col items-center justify-center -mt-12">
-            <div className="w-full max-w-xl space-y-6 animate-fade-up">
+          <div className="flex-1 flex flex-col items-center justify-center -mt-6 sm:-mt-12">
+            <div className="w-full max-w-xl space-y-5 sm:space-y-6 animate-fade-up">
               {/* Hero */}
               <div className="text-center space-y-2">
-                <h2 className="text-3xl font-bold tracking-tight text-white">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
                   Break it down. Build it right.
                 </h2>
-                <p className="text-zinc-500 text-sm">
+                <p className="text-zinc-500 text-xs sm:text-sm">
                   Stop reasoning by analogy. Question everything. Rebuild from truth.
                 </p>
               </div>
@@ -491,7 +491,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                     <button
                       key={example}
                       onClick={() => setIdea(example)}
-                      className="px-3 py-1.5 text-xs border border-zinc-800/60 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50 transition-colors text-left"
+                      className="px-3 py-2 sm:py-1.5 text-xs border border-zinc-800/60 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50 transition-colors text-left"
                     >
                       {example}
                     </button>
@@ -602,8 +602,11 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                 {showPrompt && (
                   <div className="rounded-xl border border-indigo-500/20 bg-zinc-900/60 overflow-hidden animate-fade-up">
                     <div className="flex items-center justify-between px-4 py-2.5 border-b border-zinc-800/60">
-                      <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                      <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hidden sm:block">
                         Ready to paste into Claude Code, Cursor, or any LLM
+                      </p>
+                      <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 sm:hidden">
+                        Ready to paste
                       </p>
                       <button
                         onClick={copyPrompt}
@@ -623,20 +626,20 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
             {/* Chat Section */}
             {!loading && result && (
               <div className="border-t border-zinc-800/60 pt-5 mt-5 space-y-4">
-                <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl px-4 py-3.5 flex items-center gap-3">
+                <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl px-3 sm:px-4 py-3 sm:py-3.5 flex items-center gap-2.5 sm:gap-3">
                   <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M8 2v12M5 5l3-3 3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400" />
                       <circle cx="8" cy="14" r="1" fill="currentColor" className="text-emerald-400" />
                     </svg>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-emerald-300 text-sm font-semibold">Dig Deeper</p>
-                    <p className="text-zinc-500 text-xs mt-0.5">
+                    <p className="text-zinc-500 text-[11px] sm:text-xs mt-0.5">
                       Challenge assumptions, explore rebuilds, or refine your idea with AI
                     </p>
                   </div>
-                  <div className="ml-auto">
+                  <div className="ml-auto flex-shrink-0">
                     <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   </div>
                 </div>
@@ -686,8 +689,8 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                         sendChat();
                       }
                     }}
-                    placeholder="Ask about the analysis, challenge an assumption, or go deeper on a rebuild..."
-                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-sm leading-relaxed transition-all"
+                    placeholder="Ask about the analysis..."
+                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3 sm:px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-sm leading-relaxed transition-all min-w-0"
                     rows={1}
                     disabled={chatLoading}
                   />
