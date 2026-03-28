@@ -73,7 +73,7 @@ export default function LearnPage() {
             <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Core Idea
             </p>
-            <h2 className="text-2xl font-bold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
               Stop reasoning by analogy. Start reasoning from truth.
             </h2>
           </div>
@@ -109,24 +109,24 @@ export default function LearnPage() {
             <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               Why Now
             </p>
-            <h2 className="text-2xl font-bold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
               Everyone can build. Not everyone builds the right thing.
             </h2>
           </div>
-          <div className="bg-gradient-to-br from-indigo-950/30 to-indigo-900/10 border border-indigo-500/20 rounded-xl p-5 sm:p-6 space-y-4">
-            <p className="text-zinc-300 text-sm leading-relaxed">
+          <div className="bg-gradient-to-br from-indigo-950/30 to-indigo-900/10 border border-indigo-500/20 rounded-xl p-4 sm:p-6 space-y-4">
+            <p className="text-zinc-300 text-sm sm:text-[15px] leading-relaxed">
               AI and vibecoding have collapsed the barrier to building. Anyone can ship a product now.
               That&apos;s incredible — but it also means the market is about to be flooded with thousands
               of projects that look and feel the same, because most people build by analogy.
             </p>
-            <p className="text-zinc-400 text-sm leading-relaxed">
+            <p className="text-zinc-400 text-sm sm:text-[15px] leading-relaxed">
               &quot;It&apos;s like Notion but for X.&quot; &quot;It&apos;s ChatGPT but for Y.&quot; When everyone has
               the same tools, the only differentiator is <strong className="text-zinc-200">what</strong> you
               build — not whether you can build it. First principles theory forces you to find what
               makes your idea fundamentally different, not just a slightly better copy of something
               that already exists.
             </p>
-            <p className="text-zinc-400 text-sm leading-relaxed">
+            <p className="text-zinc-400 text-sm sm:text-[15px] leading-relaxed">
               That&apos;s why Barebone exists. Before you write a single line of code, break your idea
               down to its core truths. The projects that survive won&apos;t be the ones that shipped
               fastest — they&apos;ll be the ones that were built on something real.
@@ -140,7 +140,7 @@ export default function LearnPage() {
             <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               How It Works
             </p>
-            <h2 className="text-2xl font-bold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
               Four steps to seeing clearly
             </h2>
           </div>
@@ -172,11 +172,11 @@ export default function LearnPage() {
             <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Origin
             </p>
-            <h2 className="text-2xl font-bold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
               Aristotle defined it 2,300 years ago
             </h2>
           </div>
-          <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-5 sm:p-6 space-y-4">
+          <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-4 sm:p-6 space-y-4">
             <div>
               <h3 className="text-lg font-bold text-amber-400">Aristotle</h3>
               <p className="text-zinc-600 text-xs font-mono mt-0.5">Philosopher, 384&ndash;322 BC</p>
@@ -202,11 +202,11 @@ export default function LearnPage() {
             <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Modern Champion
             </p>
-            <h2 className="text-2xl font-bold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
               Elon Musk built his entire empire on it
             </h2>
           </div>
-          <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-5 sm:p-6 space-y-5">
+          <div className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-4 sm:p-6 space-y-5">
             <div>
               <h3 className="text-lg font-bold text-sky-400">Elon Musk</h3>
               <p className="text-zinc-600 text-xs font-mono mt-0.5">Tesla, SpaceX, Neuralink</p>
@@ -223,7 +223,7 @@ export default function LearnPage() {
             </p>
 
             <div className="space-y-4">
-              <div className="bg-sky-500/5 border border-sky-500/15 rounded-lg p-4 space-y-2">
+              <div className="bg-sky-500/5 border border-sky-500/15 rounded-lg p-3 sm:p-4 space-y-2">
                 <p className="text-sky-400 text-xs font-mono font-bold uppercase tracking-widest">Tesla — Batteries</p>
                 <p className="text-zinc-400 text-sm leading-relaxed">
                   When the entire industry said batteries were too expensive for electric cars to be viable,
@@ -235,7 +235,7 @@ export default function LearnPage() {
                 </p>
               </div>
 
-              <div className="bg-sky-500/5 border border-sky-500/15 rounded-lg p-4 space-y-2">
+              <div className="bg-sky-500/5 border border-sky-500/15 rounded-lg p-3 sm:p-4 space-y-2">
                 <p className="text-sky-400 text-xs font-mono font-bold uppercase tracking-widest">SpaceX — Rockets</p>
                 <p className="text-zinc-400 text-sm leading-relaxed">
                   Instead of accepting that launching a rocket costs $65 million (the industry standard at the
@@ -262,7 +262,7 @@ export default function LearnPage() {
             <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Difference
             </p>
-            <h2 className="text-2xl font-bold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
               Analogy vs. First principles
             </h2>
           </div>
@@ -285,14 +285,14 @@ export default function LearnPage() {
                 fp: "\"What does the user actually need to accomplish? Strip everything else away.\"",
               },
             ].map((row, i) => (
-              <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <div className="bg-zinc-800/30 border border-zinc-700/40 rounded-lg p-3">
+              <div key={i} className="space-y-2 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-2">
+                <div className="bg-zinc-800/30 border border-zinc-700/40 rounded-lg p-3 sm:p-3">
                   <p className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-1.5">
                     By analogy
                   </p>
                   <p className="text-zinc-500 text-sm leading-relaxed">{row.analogy}</p>
                 </div>
-                <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-3">
+                <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-3 sm:p-3">
                   <p className="text-[10px] font-mono text-indigo-400 uppercase tracking-widest mb-1.5">
                     First principles
                   </p>
@@ -305,7 +305,7 @@ export default function LearnPage() {
 
         {/* CTA */}
         <section className="text-center space-y-5 py-8">
-          <h2 className="text-2xl font-bold tracking-tight text-white">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
             Ready to strip your idea to its core?
           </h2>
           <p className="text-zinc-500 text-sm max-w-md mx-auto">
