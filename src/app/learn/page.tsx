@@ -69,7 +69,7 @@ const principles: { title: string; description: string; color: string }[] = [
   {
     title: "Question every assumption",
     description:
-      "Most ideas are built on top of assumptions inherited from existing products, industries, or \"common knowledge.\" First principles thinking means identifying those assumptions and asking: is this actually true, or did we just accept it?",
+      "Most ideas are built on top of assumptions inherited from existing products, industries, or \"common knowledge.\" First principles theory means identifying those assumptions and asking: is this actually true, or did we just accept it?",
     color: "text-orange-400",
   },
   {
@@ -123,7 +123,7 @@ export default function LearnPage() {
             The Method
           </p>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.1]">
-            First Principles Thinking
+            First Principles Theory
           </h1>
           <p className="text-zinc-400 text-sm sm:text-lg leading-relaxed">
             The most powerful problem-solving method in history. Used by the greatest inventors,
@@ -151,7 +151,7 @@ export default function LearnPage() {
                 it&apos;s why most products feel the same.
               </p>
               <p>
-                First principles thinking is the opposite. Instead of starting with existing
+                First principles theory is the opposite. Instead of starting with existing
                 solutions, you start with the problem itself. You break it down to its most
                 fundamental truths — the things that are provably, undeniably real — and build
                 your solution from there.
@@ -211,7 +211,7 @@ export default function LearnPage() {
               The builders who changed everything
             </h2>
             <p className="text-zinc-500 text-sm max-w-xl">
-              First principles thinking isn&apos;t a Silicon Valley buzzword. It&apos;s a 2,300-year-old
+              First principles theory isn&apos;t a Silicon Valley buzzword. It&apos;s a 2,300-year-old
               method used by the most consequential thinkers in history.
             </p>
           </div>
@@ -298,7 +298,7 @@ export default function LearnPage() {
             Ready to strip your idea to its core?
           </h2>
           <p className="text-zinc-500 text-sm max-w-md mx-auto">
-            Barebone applies first principles thinking to your idea automatically. Put in a rough
+            Barebone is based on first principles theory — applied to your idea automatically. Put in a rough
             concept, get back its fundamental truths — and what you should actually build.
           </p>
           <Link
