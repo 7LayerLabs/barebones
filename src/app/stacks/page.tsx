@@ -27,7 +27,7 @@ const databases: {
   },
   {
     name: "Convex",
-    tagline: "Reactive backend — real-time by default, zero config",
+    tagline: "Reactive backend. Real-time by default, zero config.",
     bestFor: [
       "Real-time apps (chat, dashboards, collaborative tools)",
       "Apps where data changes frequently and UI must update instantly",
@@ -44,7 +44,7 @@ const databases: {
   },
   {
     name: "InstantDB",
-    tagline: "Local-first sync engine — offline by default, multiplayer ready",
+    tagline: "Local-first sync engine. Offline by default, multiplayer ready.",
     bestFor: [
       "Offline-first apps (field tools, note-taking, mobile)",
       "Apps that need instant UI with zero latency",
@@ -61,7 +61,7 @@ const databases: {
   },
   {
     name: "Firebase / Firestore",
-    tagline: "Google's BaaS — fast to start, scales automatically",
+    tagline: "Google's BaaS. Fast to start, scales automatically.",
     bestFor: [
       "Mobile apps and quick prototypes",
       "Apps already in the Google Cloud ecosystem",
@@ -78,7 +78,7 @@ const databases: {
   },
   {
     name: "Drizzle + SQLite / Turso",
-    tagline: "Lightweight, edge-ready SQL — own your data layer",
+    tagline: "Lightweight, edge-ready SQL. Own your data layer.",
     bestFor: [
       "Performance-critical apps at the edge",
       "Developers who want full SQL control with type safety",
@@ -104,7 +104,7 @@ const frameworks: {
 }[] = [
   {
     name: "Next.js + React",
-    tagline: "The default for most web apps — huge ecosystem, proven at scale",
+    tagline: "The default for most web apps. Huge ecosystem, proven at scale.",
     bestFor: [
       "SaaS products, dashboards, marketing sites",
       "Apps that need SSR, SSG, and API routes",
@@ -119,7 +119,7 @@ const frameworks: {
   },
   {
     name: "SvelteKit + Svelte",
-    tagline: "Less code, faster output — compiles away the framework",
+    tagline: "Less code, faster output. Compiles away the framework.",
     bestFor: [
       "Performance-focused apps where bundle size matters",
       "Solo developers or small teams (less boilerplate)",
@@ -134,7 +134,7 @@ const frameworks: {
   },
   {
     name: "HTMX + Server Templates",
-    tagline: "Lightweight hypermedia — HTML over the wire, minimal JS",
+    tagline: "Lightweight hypermedia. HTML over the wire, minimal JS.",
     bestFor: [
       "Content-heavy sites with simple interactions",
       "CRUD apps with mostly server-side logic",
@@ -150,7 +150,7 @@ const frameworks: {
   },
   {
     name: "Astro",
-    tagline: "Content-first framework — ships zero JS by default",
+    tagline: "Content-first framework. Ships zero JS by default.",
     bestFor: [
       "Marketing sites, blogs, documentation",
       "Content-heavy pages that need to be fast",
@@ -174,7 +174,7 @@ const uiLibraries: {
 }[] = [
   {
     name: "shadcn/ui + Tailwind",
-    tagline: "Copy-paste components — you own the code, fully customizable",
+    tagline: "Copy-paste components. You own the code, fully customizable.",
     bestFor: [
       "Production apps that need polished, accessible UI fast",
       "Teams that want design consistency without a custom system",
@@ -185,7 +185,7 @@ const uiLibraries: {
   },
   {
     name: "Tailwind CSS (alone)",
-    tagline: "Utility-first CSS — rapid prototyping, no class naming",
+    tagline: "Utility-first CSS. Rapid prototyping, no class naming.",
     bestFor: [
       "Any framework (React, Svelte, Vue, vanilla HTML)",
       "Custom designs that don't fit pre-built component libraries",
@@ -196,7 +196,7 @@ const uiLibraries: {
   },
   {
     name: "Radix UI + Tailwind",
-    tagline: "Unstyled, accessible primitives — build your own design system",
+    tagline: "Unstyled, accessible primitives. Build your own design system.",
     bestFor: [
       "Apps with a custom design language",
       "Teams building their own component library",
@@ -474,7 +474,7 @@ export default function StacksPage() {
             <p className="text-zinc-400 text-sm leading-relaxed">
               This is the most common stack in the vibecoding ecosystem for good reason: fast to start,
               scales well, massive community, and every AI coding tool knows it inside out. If you&apos;re
-              building a SaaS, dashboard, or any standard web app — start here and only deviate with a reason.
+              building a SaaS, dashboard, or any standard web app, start here and only deviate with a reason.
             </p>
             <div className="mt-4 pt-4 border-t border-indigo-500/10">
               <p className="text-zinc-500 text-sm leading-relaxed">
@@ -482,7 +482,7 @@ export default function StacksPage() {
                 <Link href="/" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
                   Barebone
                 </Link>
-                , you get a tech stack recommendation built specifically for what your product actually needs — not
+                , you get a tech stack recommendation built specifically for what your product actually needs, not
                 what&apos;s popular. If your app needs real-time sync, offline support, or edge performance, the
                 default stack isn&apos;t it, and Barebone will tell you exactly why.
               </p>

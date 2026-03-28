@@ -328,11 +328,11 @@ Build the simplest version that delivers the core value described above. The MVP
 - Focus on ONE primary user flow end-to-end
 - Prove the core value proposition before adding features
 - Be testable with real users within the first iteration
-- Skip: auth, payments, admin panels, analytics — add these later
+- Skip: auth, payments, admin panels, analytics (add these later)
 
 ## Tech Stack
 ${techStack ? clean(techStack) : `- Modern web app (Next.js or similar)
-- Clean, minimal UI — the product should feel simple and fast
+- Clean, minimal UI. The product should feel simple and fast
 - Mobile-responsive from day one
 - Start with the frontend and core user experience, backend can be simple`}
 

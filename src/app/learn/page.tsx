@@ -10,13 +10,13 @@ const principles: { title: string; description: string; color: string }[] = [
   {
     title: "Find the fundamental truths",
     description:
-      "Strip the problem down to its most basic, provable elements. What do we know to be absolutely true? Not \"what does the market say\" or \"what do competitors do\" — what are the physics-level facts about this problem?",
+      "Strip the problem down to its most basic, provable elements. What do we know to be absolutely true? Not \"what does the market say\" or \"what do competitors do,\" but the physics-level facts about this problem.",
     color: "text-emerald-400",
   },
   {
     title: "Rebuild from the ground up",
     description:
-      "Once you have the fundamentals, build your solution from scratch using only those truths as your foundation. The result often looks nothing like existing solutions — and that's the point.",
+      "Once you have the fundamentals, build your solution from scratch using only those truths as your foundation. The result often looks nothing like existing solutions. That's the point.",
     color: "text-blue-400",
   },
   {
@@ -62,8 +62,8 @@ export default function LearnPage() {
           </h1>
           <p className="text-zinc-400 text-sm sm:text-lg leading-relaxed">
             A 2,300-year-old method for seeing what everyone else misses.
-            Not a framework. Not a buzzword. A discipline — the discipline to
-            refuse what everyone else assumes and reason from what is provably true.
+            Not a framework. Not a buzzword. A discipline: refuse what everyone
+            else assumes and reason from what is provably true.
           </p>
         </section>
 
@@ -81,13 +81,13 @@ export default function LearnPage() {
             <p>
               Most people solve problems by looking at what already exists and making a slightly
               different version. &quot;It&apos;s like Uber, but for dog walking.&quot; &quot;It&apos;s like Notion, but
-              simpler.&quot; This is <strong className="text-zinc-200">reasoning by analogy</strong> — and
-              it&apos;s why most products feel the same.
+              simpler.&quot; This is <strong className="text-zinc-200">reasoning by analogy</strong>,
+              and it&apos;s why most products feel the same.
             </p>
             <p>
               First principles theory is the opposite. Instead of starting with existing
               solutions, you start with the problem itself. You break it down to its most
-              fundamental truths — the things that are provably, undeniably real — and build
+              fundamental truths, the things that are provably, undeniably real, and build
               your solution from there.
             </p>
             <p>
@@ -116,20 +116,20 @@ export default function LearnPage() {
           <div className="bg-gradient-to-br from-indigo-950/30 to-indigo-900/10 border border-indigo-500/20 rounded-xl p-4 sm:p-6 space-y-4">
             <p className="text-zinc-300 text-sm sm:text-[15px] leading-relaxed">
               AI and vibecoding have collapsed the barrier to building. Anyone can ship a product now.
-              That&apos;s incredible — but it also means the market is about to be flooded with thousands
+              That&apos;s incredible. But it also means the market is about to be flooded with thousands
               of projects that look and feel the same, because most people build by analogy.
             </p>
             <p className="text-zinc-400 text-sm sm:text-[15px] leading-relaxed">
               &quot;It&apos;s like Notion but for X.&quot; &quot;It&apos;s ChatGPT but for Y.&quot; When everyone has
               the same tools, the only differentiator is <strong className="text-zinc-200">what</strong> you
-              build — not whether you can build it. First principles theory forces you to find what
+              build, not whether you can build it. First principles theory forces you to find what
               makes your idea fundamentally different, not just a slightly better copy of something
               that already exists.
             </p>
             <p className="text-zinc-400 text-sm sm:text-[15px] leading-relaxed">
               That&apos;s why Barebone exists. Before you write a single line of code, break your idea
               down to its core truths. The projects that survive won&apos;t be the ones that shipped
-              fastest — they&apos;ll be the ones that were built on something real.
+              fastest. They&apos;ll be the ones that were built on something real.
             </p>
           </div>
         </section>
@@ -187,7 +187,7 @@ export default function LearnPage() {
             </blockquote>
             <p className="text-zinc-400 text-sm leading-relaxed">
               In his work <em className="text-zinc-300">Physics</em>, Aristotle defined a first principle as
-              &quot;the first basis from which a thing is known&quot; — the foundational truth that cannot be
+              &quot;the first basis from which a thing is known,&quot; the foundational truth that cannot be
               deduced from any other proposition. He argued that real understanding only comes from
               identifying these bedrock truths, not from accepting inherited explanations. This idea
               became the foundation of the scientific method itself: don&apos;t trust convention, find
@@ -228,7 +228,7 @@ export default function LearnPage() {
                 <p className="text-zinc-400 text-sm leading-relaxed">
                   When the entire industry said batteries were too expensive for electric cars to be viable,
                   Musk didn&apos;t accept it. In a 2012 interview with Kevin Rose, he described breaking a battery
-                  down to its raw materials — cobalt, nickel, lithium, carbon, separators, steel casing — and
+                  down to its raw materials (cobalt, nickel, lithium, carbon, separators, steel casing) and
                   checking their commodity prices on the London Metal Exchange. The materials cost roughly $80
                   per kWh. The rest was markup and convention. Tesla built the Gigafactory to assemble cells
                   directly from raw materials, dramatically reducing costs.
@@ -242,7 +242,7 @@ export default function LearnPage() {
                   time), Musk asked what a rocket is actually made of. Aerospace-grade aluminum alloys, titanium,
                   copper, carbon fiber. He calculated the raw material cost was roughly 2% of the price of a
                   finished rocket. The other 98% was inefficiency, middlemen, and convention. So SpaceX built
-                  rockets in-house and made them reusable — something the industry said was impossible.
+                  rockets in-house and made them reusable, something the industry said was impossible.
                 </p>
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function LearnPage() {
             <p className="text-zinc-400 text-sm leading-relaxed">
               Musk has consistently cited first principles theory as the single most important
               framework behind every company he&apos;s built. Not market research, not competitive
-              analysis, not trend-following — stripping a problem to its provable truths and
+              analysis, not trend-following. Strip a problem to its provable truths and
               rebuilding from there.
             </p>
           </div>
@@ -309,8 +309,8 @@ export default function LearnPage() {
             Ready to strip your idea to its core?
           </h2>
           <p className="text-zinc-500 text-sm max-w-md mx-auto">
-            Barebone is based on first principles theory — applied to your idea automatically. Put in a rough
-            concept, get back its fundamental truths — and what you should actually build.
+            Barebone is based on first principles theory, applied to your idea automatically. Put in a rough
+            concept, get back its fundamental truths and what you should actually build.
           </p>
           <Link
             href="/"
