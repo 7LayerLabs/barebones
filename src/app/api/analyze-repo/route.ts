@@ -90,7 +90,7 @@ function parseGitHubUrl(url: string): { owner: string; repo: string } | null {
     if (parsed.hostname !== "github.com" && parsed.hostname !== "www.github.com") return null;
     const parts = parsed.pathname.split("/").filter(Boolean);
     if (parts.length < 2) return null;
-    return { owner: parts[0], repo: parts[1] };
+    return { owner: parts[0], repo: parts[1].replace(/\.git$/, "") };
   } catch {
     return null;
   }

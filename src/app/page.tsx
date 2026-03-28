@@ -184,8 +184,8 @@ export default function Home() {
   }, [loading, mode]);
 
   const decompose = useCallback(() => {
-    streamDecompose(idea);
-  }, [idea, streamDecompose]);
+    streamDecompose(idea, undefined, mode);
+  }, [idea, streamDecompose, mode]);
 
   const decomposeRebuild = useCallback((rebuildText: string) => {
     streamDecompose(rebuildText, currentEntryId || undefined, "idea");
