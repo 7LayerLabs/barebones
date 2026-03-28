@@ -117,21 +117,23 @@ export default function LearnPage() {
               Four steps to seeing clearly
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="space-y-4">
             {principles.map((p, i) => (
               <div
                 key={i}
-                className="bg-zinc-900/40 border border-zinc-800/60 rounded-xl p-5 space-y-2"
+                className="flex gap-4 sm:gap-5 items-start"
               >
-                <div className="flex items-center gap-2.5">
-                  <span className={`text-[10px] font-mono font-bold ${p.color}`}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className={`text-xs font-semibold uppercase tracking-wider ${p.color}`}>
-                    {p.title}
+                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-zinc-900/60 border border-zinc-800/60 flex items-center justify-center">
+                  <span className={`text-sm font-mono font-bold ${p.color}`}>
+                    {i + 1}
                   </span>
                 </div>
-                <p className="text-zinc-400 text-sm leading-relaxed">{p.description}</p>
+                <div className="space-y-1.5 pt-1">
+                  <h3 className={`text-base font-semibold ${p.color}`}>
+                    {p.title}
+                  </h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed">{p.description}</p>
+                </div>
               </div>
             ))}
           </div>
