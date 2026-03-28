@@ -77,33 +77,29 @@ export default function LearnPage() {
               Stop reasoning by analogy. Start reasoning from truth.
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm leading-relaxed text-zinc-400">
-            <div className="space-y-4">
-              <p>
-                Most people solve problems by looking at what already exists and making a slightly
-                different version. &quot;It&apos;s like Uber, but for dog walking.&quot; &quot;It&apos;s like Notion, but
-                simpler.&quot; This is <strong className="text-zinc-200">reasoning by analogy</strong> — and
-                it&apos;s why most products feel the same.
-              </p>
-              <p>
-                First principles theory is the opposite. Instead of starting with existing
-                solutions, you start with the problem itself. You break it down to its most
-                fundamental truths — the things that are provably, undeniably real — and build
-                your solution from there.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <p>
-                The result is often something nobody has seen before. Not because it&apos;s random
-                or contrarian, but because it&apos;s built on truth instead of convention.
-              </p>
-              <p>
-                The concept was defined by Aristotle over 2,300 years ago and has been
-                applied by scientists, engineers, and entrepreneurs ever since. Today, it&apos;s
-                most visibly championed by Elon Musk, who credits it as the foundation
-                behind Tesla, SpaceX, and every company he&apos;s built.
-              </p>
-            </div>
+          <div className="max-w-2xl space-y-4 text-sm sm:text-[15px] leading-relaxed text-zinc-400">
+            <p>
+              Most people solve problems by looking at what already exists and making a slightly
+              different version. &quot;It&apos;s like Uber, but for dog walking.&quot; &quot;It&apos;s like Notion, but
+              simpler.&quot; This is <strong className="text-zinc-200">reasoning by analogy</strong> — and
+              it&apos;s why most products feel the same.
+            </p>
+            <p>
+              First principles theory is the opposite. Instead of starting with existing
+              solutions, you start with the problem itself. You break it down to its most
+              fundamental truths — the things that are provably, undeniably real — and build
+              your solution from there.
+            </p>
+            <p>
+              The result is often something nobody has seen before. Not because it&apos;s random
+              or contrarian, but because it&apos;s built on truth instead of convention.
+            </p>
+            <p>
+              The concept was defined by Aristotle over 2,300 years ago and has been
+              applied by scientists, engineers, and entrepreneurs ever since. Today, it&apos;s
+              most visibly championed by Elon Musk, who credits it as the foundation
+              behind Tesla, SpaceX, and every company he&apos;s built.
+            </p>
           </div>
         </section>
 
