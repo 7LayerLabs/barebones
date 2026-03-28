@@ -46,6 +46,10 @@ export default function Home() {
   const [editText, setEditText] = useState("");
   const [currentEntryId, setCurrentEntryId] = useState<string | null>(null);
 
+  // Mode: "idea" or "repo"
+  const [mode, setMode] = useState<"idea" | "repo">("idea");
+  const [fetchingRepo, setFetchingRepo] = useState(false);
+
   // History
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [showHistory, setShowHistory] = useState(false);
@@ -62,6 +66,17 @@ export default function Home() {
   useTrackVisitor();
   const stats = useStats();
 
+  const isValidGitHubUrl = (url: string) => {
+    try {
+      const parsed = new URL(url.trim());
+      if (parsed.hostname !== "github.com" && parsed.hostname !== "www.github.com") return false;
+      const parts = parsed.pathname.split("/").filter(Boolean);
+      return parts.length >= 2;
+    } catch {
+      return false;
+    }
+  };
+
   useEffect(() => {
     setHistory(loadHistory());
   }, []);
@@ -77,8 +92,10 @@ export default function Home() {
     }
   }, [editing]);
 
-  const streamDecompose = useCallback(async (inputIdea: string, parentId?: string) => {
+  const streamDecompose = useCallback(async (inputIdea: string, parentId?: string, forceMode?: "idea" | "repo") => {
     if (!inputIdea.trim() || loading) return;
+
+    const activeMode = forceMode || mode;
 
     setIdea(inputIdea.trim());
     setLoading(true);
@@ -93,11 +110,20 @@ export default function Home() {
     setCurrentEntryId(entryId);
 
     try {
-      const response = await fetch("/api/decompose", {
+      if (activeMode === "repo") {
+        setFetchingRepo(true);
+      }
+      const endpoint = activeMode === "repo" ? "/api/analyze-repo" : "/api/decompose";
+      const body = activeMode === "repo"
+        ? JSON.stringify({ url: inputIdea.trim() })
+        : JSON.stringify({ idea: inputIdea.trim() });
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idea: inputIdea.trim() }),
+        body,
       });
+      setFetchingRepo(false);
 
       if (!response.ok) {
         const err = await response.json();
@@ -155,14 +181,14 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [loading]);
+  }, [loading, mode]);
 
   const decompose = useCallback(() => {
     streamDecompose(idea);
   }, [idea, streamDecompose]);
 
   const decomposeRebuild = useCallback((rebuildText: string) => {
-    streamDecompose(rebuildText, currentEntryId || undefined);
+    streamDecompose(rebuildText, currentEntryId || undefined, "idea");
   }, [streamDecompose, currentEntryId]);
 
   const editAndRerun = useCallback(() => {
@@ -278,6 +304,7 @@ export default function Home() {
     setChatMessages([]);
     setChatInput("");
     setCurrentEntryId(null);
+    setFetchingRepo(false);
   };
 
   const copyResult = () => {
@@ -459,6 +486,39 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                 </p>
               </div>
 
+              {/* Mode Toggle */}
+              <div className="flex items-center justify-center gap-1 bg-zinc-900/60 border border-zinc-800/60 rounded-xl p-1">
+                <button
+                  onClick={() => { setMode("idea"); setIdea(""); }}
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    mode === "idea"
+                      ? "bg-zinc-800 text-zinc-200 shadow-sm"
+                      : "text-zinc-500 hover:text-zinc-300"
+                  }`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <circle cx="7" cy="5" r="4" stroke="currentColor" strokeWidth="1.2" fill="none"/>
+                    <path d="M5.5 9v2.5a1.5 1.5 0 003 0V9" stroke="currentColor" strokeWidth="1.2" fill="none"/>
+                  </svg>
+                  Describe an idea
+                </button>
+                <button
+                  onClick={() => { setMode("repo"); setIdea(""); }}
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    mode === "repo"
+                      ? "bg-zinc-800 text-zinc-200 shadow-sm"
+                      : "text-zinc-500 hover:text-zinc-300"
+                  }`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M5 1v12M5 1C5 2.5 2 3 2 4.5S5 6 5 7.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+                    <path d="M9 13V5.5c0-1 2.5-1.5 2.5-3S9 1 9 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+                    <circle cx="9" cy="13" r="1" fill="currentColor"/>
+                  </svg>
+                  Analyze a repo
+                </button>
+              </div>
+
               {/* Input */}
               <div className="space-y-3">
                 <textarea
@@ -467,16 +527,19 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) decompose();
                   }}
-                  placeholder="What's your idea?"
-                  className="w-full h-28 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-base leading-relaxed transition-all"
+                  placeholder={mode === "repo" ? "Paste a GitHub repo URL..." : "What's your idea?"}
+                  className={`w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-base leading-relaxed transition-all ${mode === "repo" ? "h-14" : "h-28"}`}
                   autoFocus
                 />
+                {mode === "repo" && idea.trim() && !isValidGitHubUrl(idea) && (
+                  <p className="text-red-400/80 text-xs">Enter a valid GitHub URL, like https://github.com/owner/repo</p>
+                )}
                 <button
                   onClick={decompose}
-                  disabled={!idea.trim() || loading}
+                  disabled={!idea.trim() || loading || (mode === "repo" && !isValidGitHubUrl(idea))}
                   className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-medium py-2.5 rounded-xl disabled:opacity-20 disabled:cursor-not-allowed transition-all text-base"
                 >
-                  Break it down
+                  {mode === "repo" ? "Analyze repo" : "Break it down"}
                 </button>
               </div>
 
@@ -486,22 +549,38 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                   Try one
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  {[
-                    "A tool that summarizes podcast episodes",
-                    "A subscription box for healthy snacks",
-                    "An app that helps people find parking",
-                    "A loyalty program for local restaurants",
-                    "A platform that connects freelancers with clients",
-                    "An AI tutor for kids learning math",
-                  ].map((example) => (
-                    <button
-                      key={example}
-                      onClick={() => setIdea(example)}
-                      className="px-3.5 py-2 sm:py-1.5 text-sm border border-zinc-800/60 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50 transition-colors"
-                    >
-                      {example}
-                    </button>
-                  ))}
+                  {mode === "idea" ? (
+                    [
+                      "A tool that summarizes podcast episodes",
+                      "A subscription box for healthy snacks",
+                      "An app that helps people find parking",
+                      "A loyalty program for local restaurants",
+                      "A platform that connects freelancers with clients",
+                      "An AI tutor for kids learning math",
+                    ].map((example) => (
+                      <button
+                        key={example}
+                        onClick={() => setIdea(example)}
+                        className="px-3.5 py-2 sm:py-1.5 text-sm border border-zinc-800/60 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50 transition-colors"
+                      >
+                        {example}
+                      </button>
+                    ))
+                  ) : (
+                    [
+                      "https://github.com/shadcn-ui/ui",
+                      "https://github.com/calcom/cal.com",
+                      "https://github.com/dubinc/dub",
+                    ].map((example) => (
+                      <button
+                        key={example}
+                        onClick={() => setIdea(example)}
+                        className="px-3.5 py-2 sm:py-1.5 text-sm border border-zinc-800/60 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50 transition-colors font-mono"
+                      >
+                        {example.replace("https://github.com/", "")}
+                      </button>
+                    ))
+                  )}
                 </div>
               </div>
 
@@ -539,7 +618,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
             {/* Input recap — editable */}
             <div className="bg-zinc-900/50 border border-zinc-800/60 rounded-xl px-4 py-3">
               <div className="flex items-center justify-between mb-1">
-                <p className="text-zinc-600 text-[10px] font-mono uppercase tracking-widest">Your idea</p>
+                <p className="text-zinc-600 text-[10px] font-mono uppercase tracking-widest">{mode === "repo" ? "Repository" : "Your idea"}</p>
                 {!loading && !editing && (
                   <button
                     onClick={startEdit}
@@ -586,7 +665,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
             {/* Loading state — show when loading and no parsed sections yet */}
             {loading && parseSteps(result).length === 0 && (
               <div className="flex items-center justify-center gap-1.5 py-12 text-zinc-500">
-                <span className="text-xs">Breaking it down</span>
+                <span className="text-xs">{fetchingRepo ? "Fetching repo data" : "Breaking it down"}</span>
                 <span className="thinking-dot text-indigo-400">.</span>
                 <span className="thinking-dot text-indigo-400">.</span>
                 <span className="thinking-dot text-indigo-400">.</span>
