@@ -58,6 +58,12 @@ export default function Home() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
+
+  // Riff state
+  const [selectedRebuild, setSelectedRebuild] = useState<number | null>(null);
+  const [riffInput, setRiffInput] = useState("");
+  const [riffResponse, setRiffResponse] = useState("");
+  const [isRiffing, setIsRiffing] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const chatInputRef = useRef<HTMLTextAreaElement>(null);
   const editRef = useRef<HTMLTextAreaElement>(null);
@@ -103,6 +109,10 @@ export default function Home() {
     setHasResult(true);
     setEditing(false);
     setChatMessages([]);
+    setSelectedRebuild(null);
+    setRiffInput("");
+    setRiffResponse("");
+    setIsRiffing(false);
     trackBreakdown(inputIdea.trim());
 
     let fullResult = "";
@@ -305,6 +315,10 @@ export default function Home() {
     setChatInput("");
     setCurrentEntryId(null);
     setFetchingRepo(false);
+    setSelectedRebuild(null);
+    setRiffInput("");
+    setRiffResponse("");
+    setIsRiffing(false);
   };
 
   const copyResult = () => {
@@ -337,8 +351,8 @@ ${idea}
 
 ## The Problem (First Principles Analysis)
 
-### Assumptions We're Rejecting
-These are the conventional assumptions baked into the original idea that we've challenged:
+### Hidden Assumptions & What They Unlock
+These are the blind spots most people miss — and the opportunities that open up once you see them:
 ${clean(assumptions)}
 
 ### What Users Actually Need
@@ -678,6 +692,15 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                 content={result}
                 loading={loading}
                 onDecomposeRebuild={decomposeRebuild}
+                originalIdea={idea}
+                selectedRebuild={selectedRebuild}
+                setSelectedRebuild={setSelectedRebuild}
+                riffInput={riffInput}
+                setRiffInput={setRiffInput}
+                riffResponse={riffResponse}
+                setRiffResponse={setRiffResponse}
+                isRiffing={isRiffing}
+                setIsRiffing={setIsRiffing}
               />
             )}
 
@@ -852,10 +875,28 @@ function ResultCards({
   content,
   loading,
   onDecomposeRebuild,
+  originalIdea,
+  selectedRebuild,
+  setSelectedRebuild,
+  riffInput,
+  setRiffInput,
+  riffResponse,
+  setRiffResponse,
+  isRiffing,
+  setIsRiffing,
 }: {
   content: string;
   loading: boolean;
   onDecomposeRebuild: (text: string) => void;
+  originalIdea: string;
+  selectedRebuild: number | null;
+  setSelectedRebuild: (v: number | null) => void;
+  riffInput: string;
+  setRiffInput: (v: string) => void;
+  riffResponse: string;
+  setRiffResponse: (v: string) => void;
+  isRiffing: boolean;
+  setIsRiffing: (v: boolean) => void;
 }) {
   const allSections = parseSteps(content);
   // Show all sections including the one currently being streamed
@@ -930,6 +971,15 @@ function ResultCards({
                 <RenderRebuilds
                   text={section.body}
                   onDecompose={onDecomposeRebuild}
+                  originalIdea={originalIdea}
+                  selectedRebuild={selectedRebuild}
+                  setSelectedRebuild={setSelectedRebuild}
+                  riffInput={riffInput}
+                  setRiffInput={setRiffInput}
+                  riffResponse={riffResponse}
+                  setRiffResponse={setRiffResponse}
+                  isRiffing={isRiffing}
+                  setIsRiffing={setIsRiffing}
                 />
               ) : isTransformation ? (
                 <RenderBody text={section.body} isTransformation={isTransformation} />
@@ -963,39 +1013,75 @@ function ResultCards({
 
 // Renders assumptions as a 2-column grid of mini cards
 function RenderAssumptionsGrid({ text }: { text: string }) {
-  const items: { assumption: string; reason: string }[] = [];
+  const items: { assumption: string; reasoning: string; unlock: string }[] = [];
   const lines = text.split("\n").filter((l) => l.trim());
 
-  let current: { assumption: string; reason: string } | null = null;
+  let current: { assumption: string; reasoning: string; unlock: string } | null = null;
+  // Track which section we're appending to: "assumption" | "reasoning" | "unlock"
+  let section: "assumption" | "reasoning" | "unlock" = "assumption";
+
   for (const line of lines) {
-    // Lines starting with - or * or a number are assumption headers
+    const trimmed = line.trim();
+
+    // Lines starting with - or * or a number followed by bold are assumption headers
     if (/^[-*]\s*\*\*/.test(line) || /^\d+\.\s*\*\*/.test(line)) {
       if (current) items.push(current);
       const cleaned = line.replace(/^[-*]\s*/, "").replace(/^\d+\.\s*/, "");
-      current = { assumption: cleaned, reason: "" };
+      current = { assumption: cleaned, reasoning: "", unlock: "" };
+      section = "assumption";
     } else if (/^[-*]\s/.test(line) || /^\d+\.\s/.test(line)) {
       if (current) items.push(current);
       const cleaned = line.replace(/^[-*]\s*/, "").replace(/^\d+\.\s*/, "");
-      current = { assumption: cleaned, reason: "" };
+      current = { assumption: cleaned, reasoning: "", unlock: "" };
+      section = "assumption";
     } else if (current) {
-      current.reason += (current.reason ? " " : "") + line.trim();
+      // Check if this line starts the "What this unlocks" section
+      if (/\*?\*?What this unlocks\*?\*?\s*:?/i.test(trimmed)) {
+        section = "unlock";
+        // Extract any text after the header on the same line
+        const afterHeader = trimmed.replace(/\*?\*?What this unlocks\*?\*?\s*:?\s*/i, "");
+        if (afterHeader) {
+          current.unlock += afterHeader;
+        }
+      }
+      // Check if this line starts the "Why it might be wrong" section
+      else if (/why it might be wrong\s*:?/i.test(trimmed)) {
+        section = "reasoning";
+        const afterHeader = trimmed.replace(/.*?why it might be wrong\s*:?\s*/i, "");
+        if (afterHeader) {
+          current.reasoning += afterHeader;
+        }
+      } else {
+        // Append to current section
+        if (section === "unlock") {
+          current.unlock += (current.unlock ? " " : "") + trimmed;
+        } else if (section === "reasoning") {
+          current.reasoning += (current.reasoning ? " " : "") + trimmed;
+        } else {
+          // Still in assumption section — treat as reasoning (continuation text)
+          current.reasoning += (current.reasoning ? " " : "") + trimmed;
+        }
+      }
     } else {
       // Standalone line, treat as its own item
-      if (current) items.push(current);
-      current = { assumption: line.trim(), reason: "" };
+      current = { assumption: trimmed, reasoning: "", unlock: "" };
+      section = "assumption";
     }
   }
   if (current) items.push(current);
 
   if (items.length === 0) return <RenderBody text={text} />;
 
+  // Clean leading "- **" or "* **" artifacts from AI text
+  const cleanUnlock = (s: string) => s.replace(/^[-*]\s*\*?\*?\s*/, "").replace(/\*\*\s*$/, "").trim();
+
   const cardColors = [
-    { accent: "text-orange-400", border: "border-orange-500/20", bg: "bg-orange-500/5" },
+    { accent: "text-violet-400", border: "border-violet-500/20", bg: "bg-violet-500/5" },
+    { accent: "text-cyan-400", border: "border-cyan-500/20", bg: "bg-cyan-500/5" },
     { accent: "text-amber-400", border: "border-amber-500/20", bg: "bg-amber-500/5" },
-    { accent: "text-rose-400", border: "border-rose-500/20", bg: "bg-rose-500/5" },
-    { accent: "text-pink-400", border: "border-pink-500/20", bg: "bg-pink-500/5" },
-    { accent: "text-red-400", border: "border-red-500/20", bg: "bg-red-500/5" },
-    { accent: "text-yellow-400", border: "border-yellow-500/20", bg: "bg-yellow-500/5" },
+    { accent: "text-emerald-400", border: "border-emerald-500/20", bg: "bg-emerald-500/5" },
+    { accent: "text-blue-400", border: "border-blue-500/20", bg: "bg-blue-500/5" },
+    { accent: "text-teal-400", border: "border-teal-500/20", bg: "bg-teal-500/5" },
   ];
 
   const isOdd = items.length % 2 !== 0;
@@ -1020,11 +1106,23 @@ function RenderAssumptionsGrid({ text }: { text: string }) {
                 className="text-zinc-300 text-sm font-medium leading-relaxed mt-1"
                 dangerouslySetInnerHTML={{ __html: inlineFormat(item.assumption) }}
               />
-              {item.reason && (
-                <p
-                  className="text-zinc-500 text-sm leading-relaxed mt-1.5"
-                  dangerouslySetInnerHTML={{ __html: inlineFormat(item.reason) }}
-                />
+              {item.reasoning && (
+                <div className={`mt-2.5 pt-2 border-t ${color.border}`}>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-600 mb-1">Why it might be wrong</p>
+                  <p
+                    className="text-zinc-500 text-sm italic leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: inlineFormat(item.reasoning) }}
+                  />
+                </div>
+              )}
+              {item.unlock && (
+                <div className={`mt-2.5 pt-2 border-t ${color.border}`}>
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-600 mb-1">What this unlocks</p>
+                  <p
+                    className={`${color.accent} text-sm leading-relaxed font-medium`}
+                    dangerouslySetInnerHTML={{ __html: inlineFormat(cleanUnlock(item.unlock)) }}
+                  />
+                </div>
               )}
             </div>
           );
@@ -1040,11 +1138,23 @@ function RenderAssumptionsGrid({ text }: { text: string }) {
               className="text-zinc-300 text-sm font-medium leading-relaxed mt-1"
               dangerouslySetInnerHTML={{ __html: inlineFormat(lastItem.assumption) }}
             />
-            {lastItem.reason && (
-              <p
-                className="text-zinc-500 text-sm leading-relaxed mt-1.5"
-                dangerouslySetInnerHTML={{ __html: inlineFormat(lastItem.reason) }}
-              />
+            {lastItem.reasoning && (
+              <div className={`mt-2.5 pt-2 border-t ${lastColor.border}`}>
+                <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-600 mb-1">Why it might be wrong</p>
+                <p
+                  className="text-zinc-500 text-sm italic leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: inlineFormat(lastItem.reasoning) }}
+                />
+              </div>
+            )}
+            {lastItem.unlock && (
+              <div className={`mt-2.5 pt-2 border-t ${lastColor.border}`}>
+                <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-600 mb-1">What this unlocks</p>
+                <p
+                  className={`${lastColor.accent} text-sm leading-relaxed font-medium`}
+                  dangerouslySetInnerHTML={{ __html: inlineFormat(cleanUnlock(lastItem.unlock)) }}
+                />
+              </div>
             )}
           </div>
         </div>
@@ -1106,15 +1216,33 @@ function RenderFundamentalsGrid({ text }: { text: string }) {
   );
 }
 
-// Renders rebuild section with collapsible cards + decompose action
+// Renders rebuild section with interactive cards + riff feature
 function RenderRebuilds({
   text,
   onDecompose,
+  originalIdea,
+  selectedRebuild,
+  setSelectedRebuild,
+  riffInput,
+  setRiffInput,
+  riffResponse,
+  setRiffResponse,
+  isRiffing,
+  setIsRiffing,
 }: {
   text: string;
   onDecompose: (text: string) => void;
+  originalIdea: string;
+  selectedRebuild: number | null;
+  setSelectedRebuild: (v: number | null) => void;
+  riffInput: string;
+  setRiffInput: (v: string) => void;
+  riffResponse: string;
+  setRiffResponse: (v: string) => void;
+  isRiffing: boolean;
+  setIsRiffing: (v: boolean) => void;
 }) {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const riffInputRef = useRef<HTMLTextAreaElement>(null);
 
   const lines = text.split("\n");
   const preamble: React.ReactNode[] = [];
@@ -1132,9 +1260,11 @@ function RenderRebuilds({
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    if (/^\*\*["""]?[^*]+["""]?\*\*/.test(line) && !line.startsWith("**Current") && !line.startsWith("**First")) {
+    // Match rebuild headers: "**Name:**", "1. **Name:**", "- **Name:**"
+    const strippedLine = line.replace(/^[\d]+\.\s*/, "").replace(/^[-*]\s*/, "");
+    if (/^\*\*["""]?[^*]+["""]?\*\*/.test(strippedLine) && !/^\*\*(Current|First)/i.test(strippedLine)) {
       flushRebuild();
-      const titleMatch = line.match(/^\*\*(.+?)\*\*[:\s]*(.*)/);
+      const titleMatch = strippedLine.match(/^\*\*(.+?)\*\*[:\s]*(.*)/);
       if (titleMatch) {
         currentRebuild = {
           title: titleMatch[1],
@@ -1147,7 +1277,6 @@ function RenderRebuilds({
       flushRebuild();
     } else {
       if (line.trim() === "") continue;
-      // Flow comparison — detect Current flow / First Principles flow labels
       const flowLabelMatch = line.match(/^\*\*(Current flow|First Principles flow):\*\*\s*(.*)/i);
       if (flowLabelMatch) {
         const isCurrent = /current/i.test(flowLabelMatch[1]);
@@ -1175,12 +1304,90 @@ function RenderRebuilds({
   }
   flushRebuild();
 
+  const handleCardClick = (index: number) => {
+    if (selectedRebuild === index) {
+      setSelectedRebuild(null);
+      setRiffInput("");
+      setRiffResponse("");
+    } else {
+      setSelectedRebuild(index);
+      setRiffInput("");
+      setRiffResponse("");
+      setTimeout(() => riffInputRef.current?.focus(), 100);
+    }
+  };
+
+  const submitRiff = async () => {
+    if (!riffInput.trim() || isRiffing || selectedRebuild === null) return;
+    const rebuild = rebuilds[selectedRebuild];
+    if (!rebuild) return;
+
+    const selectedText = `${rebuild.title}: ${rebuild.body.join(" ")}`;
+    setIsRiffing(true);
+    setRiffResponse("");
+
+    let fullResponse = "";
+
+    try {
+      const response = await fetch("/api/riff", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          originalIdea: originalIdea,
+          selectedRebuild: selectedText,
+          userTwist: riffInput.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        setRiffResponse("Error: Failed to get response.");
+        setIsRiffing(false);
+        return;
+      }
+
+      const reader = response.body?.getReader();
+      if (!reader) return;
+
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const chunks = buffer.split("\n\n");
+        buffer = chunks.pop() || "";
+
+        for (const chunk of chunks) {
+          if (chunk.startsWith("data: ")) {
+            const data = chunk.slice(6);
+            if (data === "[DONE]") break;
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.text) {
+                fullResponse += parsed.text;
+                setRiffResponse(fullResponse);
+              }
+            } catch {
+              // skip
+            }
+          }
+        }
+      }
+    } catch {
+      setRiffResponse("Error: Connection failed.");
+    } finally {
+      setIsRiffing(false);
+    }
+  };
+
   const rebuildColors = [
-    { accent: "text-cyan-400", border: "border-cyan-500/20", bg: "bg-cyan-500/5", btnBg: "bg-cyan-500/10", btnBorder: "border-cyan-500/20", btnHover: "hover:bg-cyan-500/20" },
-    { accent: "text-violet-400", border: "border-violet-500/20", bg: "bg-violet-500/5", btnBg: "bg-violet-500/10", btnBorder: "border-violet-500/20", btnHover: "hover:bg-violet-500/20" },
-    { accent: "text-sky-400", border: "border-sky-500/20", bg: "bg-sky-500/5", btnBg: "bg-sky-500/10", btnBorder: "border-sky-500/20", btnHover: "hover:bg-sky-500/20" },
-    { accent: "text-teal-400", border: "border-teal-500/20", bg: "bg-teal-500/5", btnBg: "bg-teal-500/10", btnBorder: "border-teal-500/20", btnHover: "hover:bg-teal-500/20" },
-    { accent: "text-blue-400", border: "border-blue-500/20", bg: "bg-blue-500/5", btnBg: "bg-blue-500/10", btnBorder: "border-blue-500/20", btnHover: "hover:bg-blue-500/20" },
+    { accent: "text-cyan-400", border: "border-cyan-500/20", borderSelected: "border-cyan-400/60", bg: "bg-cyan-500/5", bgSelected: "bg-cyan-500/10", glow: "shadow-cyan-500/10", btnBg: "bg-cyan-500/10", btnBorder: "border-cyan-500/20", btnHover: "hover:bg-cyan-500/20" },
+    { accent: "text-violet-400", border: "border-violet-500/20", borderSelected: "border-violet-400/60", bg: "bg-violet-500/5", bgSelected: "bg-violet-500/10", glow: "shadow-violet-500/10", btnBg: "bg-violet-500/10", btnBorder: "border-violet-500/20", btnHover: "hover:bg-violet-500/20" },
+    { accent: "text-sky-400", border: "border-sky-500/20", borderSelected: "border-sky-400/60", bg: "bg-sky-500/5", bgSelected: "bg-sky-500/10", glow: "shadow-sky-500/10", btnBg: "bg-sky-500/10", btnBorder: "border-sky-500/20", btnHover: "hover:bg-sky-500/20" },
+    { accent: "text-teal-400", border: "border-teal-500/20", borderSelected: "border-teal-400/60", bg: "bg-teal-500/5", bgSelected: "bg-teal-500/10", glow: "shadow-teal-500/10", btnBg: "bg-teal-500/10", btnBorder: "border-teal-500/20", btnHover: "hover:bg-teal-500/20" },
+    { accent: "text-blue-400", border: "border-blue-500/20", borderSelected: "border-blue-400/60", bg: "bg-blue-500/5", bgSelected: "bg-blue-500/10", glow: "shadow-blue-500/10", btnBg: "bg-blue-500/10", btnBorder: "border-blue-500/20", btnHover: "hover:bg-blue-500/20" },
   ];
 
   return (
@@ -1227,65 +1434,149 @@ function RenderRebuilds({
         </div>
       )}
 
-      {/* Rebuild cards — collapsed by default */}
-      {rebuilds.map((rebuild, i) => {
-        const isExpanded = expandedIndex === i;
-        const rebuildText = `${rebuild.title}: ${rebuild.body.join(" ")}`;
-        const color = rebuildColors[i % rebuildColors.length];
+      {/* Rebuild cards — interactive grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        {rebuilds.map((rebuild, i) => {
+          const isSelected = selectedRebuild === i;
+          const rebuildText = `${rebuild.title}: ${rebuild.body.join(" ")}`;
+          const color = rebuildColors[i % rebuildColors.length];
 
-        return (
-          <div
-            key={i}
-            className={`${color.bg} border ${color.border} rounded-lg overflow-hidden transition-colors`}
-          >
-            {/* Header — always visible */}
-            <button
-              onClick={() => setExpandedIndex(isExpanded ? null : i)}
-              className="w-full flex items-center justify-between px-3 py-2.5 text-left"
+          return (
+            <div
+              key={i}
+              onClick={() => handleCardClick(i)}
+              className={`rounded-lg overflow-hidden transition-all duration-200 cursor-pointer border ${
+                isSelected
+                  ? `${color.bgSelected} ${color.borderSelected} shadow-lg ${color.glow}`
+                  : `${color.bg} ${color.border} hover:${color.borderSelected} hover:shadow-md hover:${color.glow}`
+              }`}
             >
-              <div className="flex items-center gap-2.5">
-                <span className={`text-[10px] font-mono font-bold ${color.accent}`}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span
-                  className={`text-sm font-medium ${color.accent}`}
-                  dangerouslySetInnerHTML={{ __html: inlineFormat(rebuild.title) }}
-                />
-              </div>
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                className={`text-zinc-600 transition-transform flex-shrink-0 ml-2 ${isExpanded ? "rotate-180" : ""}`}
-              >
-                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-              </svg>
-            </button>
-
-            {/* Expanded body */}
-            {isExpanded && (
-              <div className="px-3 pb-3 border-t border-zinc-800/40">
+              <div className="px-3 py-3">
+                <div className="flex items-start gap-2.5 mb-1.5">
+                  <span className={`text-[10px] font-mono font-bold mt-0.5 ${color.accent}`}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`text-sm font-semibold leading-snug ${color.accent}`}
+                    dangerouslySetInnerHTML={{ __html: inlineFormat(rebuild.title) }}
+                  />
+                </div>
                 {rebuild.body.length > 0 && (
-                  <div className="mt-2 text-zinc-500 text-sm leading-relaxed [&_strong]:text-zinc-300">
+                  <div className="text-zinc-500 text-xs leading-relaxed ml-[22px] [&_strong]:text-zinc-300 line-clamp-3">
                     {rebuild.body.map((line, j) => (
-                      <p key={j} className="my-0.5" dangerouslySetInnerHTML={{ __html: inlineFormat(line) }} />
+                      <span key={j}>
+                        {j > 0 && " "}
+                        <span dangerouslySetInnerHTML={{ __html: inlineFormat(line) }} />
+                      </span>
                     ))}
                   </div>
                 )}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDecompose(rebuildText);
-                  }}
-                  className={`mt-2.5 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest ${color.btnBg} border ${color.btnBorder} rounded-lg ${color.btnHover} transition-colors ${color.accent}`}
-                >
-                  Break this down →
-                </button>
+                <div className="flex items-center gap-2 mt-2.5 ml-[22px]">
+                  {isSelected ? (
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 flex items-center gap-1.5">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M1.5 5.5L4 8L8.5 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      Selected — riff below
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-600 flex items-center gap-1.5">
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <circle cx="5" cy="5" r="3.5" stroke="currentColor" strokeWidth="1"/>
+                      </svg>
+                      Click to riff
+                    </span>
+                  )}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDecompose(rebuildText);
+                    }}
+                    className={`ml-auto px-2 py-1 text-[9px] font-mono uppercase tracking-widest ${color.btnBg} border ${color.btnBorder} rounded ${color.btnHover} transition-colors ${color.accent}`}
+                  >
+                    Break down
+                  </button>
+                </div>
               </div>
-            )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Riff interaction area — appears below grid when a card is selected */}
+      {selectedRebuild !== null && rebuilds[selectedRebuild] && (
+        <div className="animate-fade-up rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 space-y-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-md bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 2v8M2 6h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-indigo-400"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-zinc-300">
+                Riff on <span className={rebuildColors[selectedRebuild % rebuildColors.length].accent}>{rebuilds[selectedRebuild].title}</span>
+              </p>
+              <p className="text-[10px] text-zinc-600">Add your twist and see where it goes</p>
+            </div>
           </div>
-        );
-      })}
+
+          <div className="flex gap-2">
+            <textarea
+              ref={riffInputRef}
+              value={riffInput}
+              onChange={(e) => setRiffInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  submitRiff();
+                }
+              }}
+              placeholder="I like this direction. What would you change?"
+              className="flex-1 bg-zinc-800/60 border border-zinc-700/50 rounded-lg px-3 py-2 text-sm text-zinc-300 placeholder-zinc-600 resize-none focus:outline-none focus:border-indigo-500/40 focus:ring-1 focus:ring-indigo-500/20 transition-colors"
+              rows={2}
+              disabled={isRiffing}
+            />
+            <button
+              onClick={submitRiff}
+              disabled={!riffInput.trim() || isRiffing}
+              className="self-end px-4 py-2 text-xs font-medium bg-indigo-500/15 border border-indigo-500/30 rounded-lg hover:bg-indigo-500/25 transition-colors text-indigo-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
+            >
+              {isRiffing ? (
+                <>
+                  <span className="thinking-dot text-indigo-400">.</span>
+                  <span className="thinking-dot text-indigo-400">.</span>
+                  <span className="thinking-dot text-indigo-400">.</span>
+                </>
+              ) : (
+                <>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Riff
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Riff response */}
+          {(riffResponse || isRiffing) && (
+            <div className="rounded-lg border border-zinc-800/60 bg-zinc-950/40 p-3">
+              {riffResponse ? (
+                <div className="text-sm leading-relaxed text-zinc-400 [&_strong]:text-zinc-200 [&_em]:text-zinc-300">
+                  <RenderBody text={riffResponse} />
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5 py-2 text-zinc-500">
+                  <span className="text-xs">Riffing</span>
+                  <span className="thinking-dot text-indigo-400">.</span>
+                  <span className="thinking-dot text-indigo-400">.</span>
+                  <span className="thinking-dot text-indigo-400">.</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

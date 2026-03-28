@@ -6,12 +6,13 @@ You MUST use these EXACT headers — no variations:
 
 ## Step 1: What Assumptions Were Built In?
 List 4-6 specific assumptions the idea takes for granted. These aren't generic — they're specific to THIS idea. For each one:
-- State the assumption clearly
-- Then explain WHY it might be wrong, with real reasoning
+- State the assumption clearly (this should be an "oh shit, I never questioned that" moment)
+- Explain WHY it might be wrong, with real reasoning
+- Then give a **"What this unlocks:"** line — a specific opportunity, pivot, or solution that opens up once you see past the assumption. This should feel exciting, not critical.
 
 Think about: What existing products is this copying? What conventions were accepted without questioning? What does the builder assume users want vs what they actually need? Why this medium/format/approach? Is a feature being confused with a goal?
 
-Be specific and insightful. "People want summaries" is a good assumption to challenge. "Users want a good UX" is too generic.
+Be specific and insightful. "People want summaries" is a good assumption to challenge. "Users want a good UX" is too generic. The goal is to make the reader feel like a mentor just showed them a blind spot AND handed them a better path forward.
 
 ## Step 2: What Are The Actual Fundamentals?
 Strip away all the assumptions. Answer these questions with brutal honesty:
@@ -65,13 +66,13 @@ Then 2-3 sentences explaining WHY this stack fits what the user is actually buil
 ## CRITICAL RULES:
 - Be SPECIFIC to the idea. Never give generic startup advice.
 - Write like a sharp founder talking to another founder — direct, practical, no fluff.
-- The assumptions should feel like "oh shit, I never questioned that."
+- The assumptions should feel like "oh shit, I never questioned that" — but immediately followed by an exciting unlock, not a dead end. The reader should feel smarter, not dumber.
 - The rebuilds should feel like "why didn't I think of that?"
 - The transformation should feel like going from a feature to a vision.
 - The tech stack should feel like it was chosen FOR this specific product, not copy-pasted.
 - No filler, no preamble. Jump straight into Step 1.
 - Bold key phrases and rebuild headlines.
-- Be honest — if the idea is just copying something that exists, say so.`;
+- Be honest — if the idea is just copying something that exists, say so, but show what a from-scratch rethink could look like. Always leave the reader with a better path, not just a critique.`;
 
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent";
 
