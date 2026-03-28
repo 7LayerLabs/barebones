@@ -54,7 +54,7 @@ export default function LearnPage() {
       <div className="max-w-4xl mx-auto w-full px-4 sm:px-5 py-8 sm:py-12 space-y-12 sm:space-y-20">
         {/* Hero */}
         <section className="space-y-3 sm:space-y-4 max-w-2xl">
-          <p className="text-indigo-400 text-xs font-mono uppercase tracking-widest">
+          <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
             The Theory
           </p>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-[1.1]">
@@ -70,7 +70,7 @@ export default function LearnPage() {
         {/* What is it */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+            <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Core Idea
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -110,7 +110,7 @@ export default function LearnPage() {
         {/* Why Now */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+            <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               Why Now
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -141,7 +141,7 @@ export default function LearnPage() {
         {/* The 4 steps */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+            <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               How It Works
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -173,7 +173,7 @@ export default function LearnPage() {
         {/* Origin — Aristotle */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+            <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Origin
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -203,7 +203,7 @@ export default function LearnPage() {
         {/* Modern Champion — Elon Musk */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+            <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Modern Champion
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -263,7 +263,7 @@ export default function LearnPage() {
         {/* Analogy vs First Principles */}
         <section className="space-y-6">
           <div className="space-y-2">
-            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+            <p className="text-amber-400 text-[11px] font-mono uppercase tracking-widest font-bold">
               The Difference
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-white">
