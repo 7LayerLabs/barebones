@@ -448,7 +448,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
                   Break it down. Build it right.
                 </h2>
-                <p className="text-zinc-500 text-xs sm:text-sm">
+                <p className="text-zinc-500 text-sm sm:text-base">
                   Stop reasoning by analogy. Question everything. Rebuild from truth.
                 </p>
               </div>
@@ -462,13 +462,13 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                     if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) decompose();
                   }}
                   placeholder="What's your idea?"
-                  className="w-full h-28 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-sm leading-relaxed transition-all"
+                  className="w-full h-28 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-base leading-relaxed transition-all"
                   autoFocus
                 />
                 <button
                   onClick={decompose}
                   disabled={!idea.trim() || loading}
-                  className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-medium py-2.5 rounded-xl disabled:opacity-20 disabled:cursor-not-allowed transition-all text-sm"
+                  className="w-full bg-indigo-500 hover:bg-indigo-400 text-white font-medium py-2.5 rounded-xl disabled:opacity-20 disabled:cursor-not-allowed transition-all text-base"
                 >
                   Decompose
                 </button>
@@ -491,7 +491,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                     <button
                       key={example}
                       onClick={() => setIdea(example)}
-                      className="px-3 py-2 sm:py-1.5 text-xs border border-zinc-800/60 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50 transition-colors text-left"
+                      className="px-3.5 py-2 sm:py-1.5 text-sm border border-zinc-800/60 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 hover:bg-zinc-900/50 transition-colors text-left"
                     >
                       {example}
                     </button>
@@ -546,7 +546,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                   </div>
                 </div>
               ) : (
-                <p className="text-zinc-400 text-sm">{idea}</p>
+                <p className="text-zinc-400 text-base">{idea}</p>
               )}
             </div>
 
@@ -615,7 +615,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                         {copiedPrompt ? "Copied!" : "Copy prompt"}
                       </button>
                     </div>
-                    <pre className="px-4 py-3 text-xs text-zinc-400 leading-relaxed whitespace-pre-wrap max-h-80 overflow-y-auto font-mono">
+                    <pre className="px-4 py-3 text-sm text-zinc-400 leading-relaxed whitespace-pre-wrap max-h-80 overflow-y-auto font-mono">
                       {generatePrompt()}
                     </pre>
                   </div>
@@ -650,7 +650,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                     {chatMessages.map((msg, i) => (
                       <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                         <div
-                          className={`max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed ${
+                          className={`max-w-[85%] rounded-xl px-4 py-3 text-[15px] leading-relaxed ${
                             msg.role === "user"
                               ? "bg-indigo-500/20 border border-indigo-500/30 text-zinc-200"
                               : "bg-zinc-900/60 border border-zinc-800/60 text-zinc-400 [&_strong]:text-zinc-200"
@@ -690,7 +690,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                       }
                     }}
                     placeholder="Ask about the analysis..."
-                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3 sm:px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-sm leading-relaxed transition-all min-w-0"
+                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3 sm:px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 resize-none text-base leading-relaxed transition-all min-w-0"
                     rows={1}
                     disabled={chatLoading}
                   />
@@ -720,7 +720,7 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                           setChatInput(suggestion);
                           chatInputRef.current?.focus();
                         }}
-                        className="px-3 py-1.5 text-xs border border-zinc-800 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 transition-colors"
+                        className="px-3.5 py-2 text-sm border border-zinc-800 rounded-full text-zinc-500 hover:text-zinc-300 hover:border-zinc-700 transition-colors"
                       >
                         {suggestion}
                       </button>
@@ -809,7 +809,7 @@ function ResultCards({
                 </div>
               )}
             </div>
-            <div className="text-sm leading-relaxed text-zinc-400 [&_strong]:text-zinc-200 [&_em]:text-zinc-300">
+            <div className="text-[15px] leading-relaxed text-zinc-400 [&_strong]:text-zinc-200 [&_em]:text-zinc-300">
               {isAssumptions && isSectionComplete ? (
                 <RenderAssumptionsGrid text={section.body} />
               ) : isFundamentals && isSectionComplete ? (
@@ -905,12 +905,12 @@ function RenderAssumptionsGrid({ text }: { text: string }) {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <p
-                className="text-zinc-300 text-xs font-medium leading-relaxed mt-1"
+                className="text-zinc-300 text-sm font-medium leading-relaxed mt-1"
                 dangerouslySetInnerHTML={{ __html: inlineFormat(item.assumption) }}
               />
               {item.reason && (
                 <p
-                  className="text-zinc-500 text-xs leading-relaxed mt-1.5"
+                  className="text-zinc-500 text-sm leading-relaxed mt-1.5"
                   dangerouslySetInnerHTML={{ __html: inlineFormat(item.reason) }}
                 />
               )}
@@ -925,12 +925,12 @@ function RenderAssumptionsGrid({ text }: { text: string }) {
               {String(items.length).padStart(2, "0")}
             </span>
             <p
-              className="text-zinc-300 text-xs font-medium leading-relaxed mt-1"
+              className="text-zinc-300 text-sm font-medium leading-relaxed mt-1"
               dangerouslySetInnerHTML={{ __html: inlineFormat(lastItem.assumption) }}
             />
             {lastItem.reason && (
               <p
-                className="text-zinc-500 text-xs leading-relaxed mt-1.5"
+                className="text-zinc-500 text-sm leading-relaxed mt-1.5"
                 dangerouslySetInnerHTML={{ __html: inlineFormat(lastItem.reason) }}
               />
             )}
@@ -985,7 +985,7 @@ function RenderFundamentalsGrid({ text }: { text: string }) {
             </p>
           )}
           <p
-            className="text-zinc-300 text-xs leading-relaxed"
+            className="text-zinc-300 text-sm leading-relaxed"
             dangerouslySetInnerHTML={{ __html: inlineFormat(item.content) }}
           />
         </div>
