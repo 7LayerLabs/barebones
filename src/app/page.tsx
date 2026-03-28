@@ -746,10 +746,8 @@ function ResultCards({
   onDecomposeRebuild: (text: string) => void;
 }) {
   const allSections = parseSteps(content);
-  // While streaming, only show completed sections (all except the last one being written)
-  const sections = loading && allSections.length > 0
-    ? allSections.slice(0, -1)
-    : allSections;
+  // Show all sections including the one currently being streamed
+  const sections = allSections;
 
   const stepMeta: Record<string, { color: string; icon: string }> = {
     "1": { color: "text-orange-400", icon: "01" },
@@ -769,6 +767,8 @@ function ResultCards({
         const isAssumptions = stepNum === "1";
         const isFundamentals = stepNum === "2";
         const isTechStack = stepNum === "5";
+        const isLastSection = i === sections.length - 1;
+        const isSectionComplete = !loading || !isLastSection;
 
         // Extract the AFTER line for decompose button
         const afterMatch = isTransformation
@@ -796,18 +796,25 @@ function ResultCards({
                   {section.title}
                 </span>
               </div>
-              {isRebuild && !loading && (
+              {isRebuild && isSectionComplete && (
                 <span className="text-[10px] text-zinc-600 font-mono">
                   Click to decompose
                 </span>
               )}
+              {!isSectionComplete && (
+                <div className="flex items-center gap-1">
+                  <span className="thinking-dot text-indigo-400 text-xs">.</span>
+                  <span className="thinking-dot text-indigo-400 text-xs">.</span>
+                  <span className="thinking-dot text-indigo-400 text-xs">.</span>
+                </div>
+              )}
             </div>
             <div className="text-sm leading-relaxed text-zinc-400 [&_strong]:text-zinc-200 [&_em]:text-zinc-300">
-              {isAssumptions && !loading ? (
+              {isAssumptions && isSectionComplete ? (
                 <RenderAssumptionsGrid text={section.body} />
-              ) : isFundamentals && !loading ? (
+              ) : isFundamentals && isSectionComplete ? (
                 <RenderFundamentalsGrid text={section.body} />
-              ) : isRebuild && !loading ? (
+              ) : isRebuild && isSectionComplete ? (
                 <RenderRebuilds
                   text={section.body}
                   onDecompose={onDecomposeRebuild}
@@ -819,7 +826,7 @@ function ResultCards({
               )}
             </div>
             {/* Decompose the AFTER idea */}
-            {isTransformation && afterMatch && !loading && (
+            {isTransformation && afterMatch && isSectionComplete && (
               <button
                 onClick={() => onDecomposeRebuild(afterMatch[1].replace(/\*\*/g, "").trim())}
                 className="mt-3 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest bg-indigo-500/10 border border-indigo-500/20 rounded-lg hover:bg-indigo-500/20 transition-colors text-indigo-400"
@@ -830,9 +837,9 @@ function ResultCards({
           </div>
         );
       })}
-      {loading && (
+      {loading && sections.length === 0 && (
         <div className="flex items-center gap-1.5 py-3 text-zinc-500">
-          <span className="text-xs">{sections.length === 0 ? "Decomposing" : "Analyzing"}</span>
+          <span className="text-xs">Decomposing</span>
           <span className="thinking-dot text-indigo-400">.</span>
           <span className="thinking-dot text-indigo-400">.</span>
           <span className="thinking-dot text-indigo-400">.</span>
