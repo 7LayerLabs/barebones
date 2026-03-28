@@ -107,6 +107,37 @@ export default function LearnPage() {
           </div>
         </section>
 
+        {/* Why Now */}
+        <section className="space-y-6">
+          <div className="space-y-2">
+            <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">
+              Why Now
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight text-white">
+              Everyone can build. Not everyone builds the right thing.
+            </h2>
+          </div>
+          <div className="bg-gradient-to-br from-indigo-950/30 to-indigo-900/10 border border-indigo-500/20 rounded-xl p-5 sm:p-6 space-y-4">
+            <p className="text-zinc-300 text-sm leading-relaxed">
+              AI and vibecoding have collapsed the barrier to building. Anyone can ship a product now.
+              That&apos;s incredible — but it also means the market is about to be flooded with thousands
+              of projects that look and feel the same, because most people build by analogy.
+            </p>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              &quot;It&apos;s like Notion but for X.&quot; &quot;It&apos;s ChatGPT but for Y.&quot; When everyone has
+              the same tools, the only differentiator is <strong className="text-zinc-200">what</strong> you
+              build — not whether you can build it. First principles theory forces you to find what
+              makes your idea fundamentally different, not just a slightly better copy of something
+              that already exists.
+            </p>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              That&apos;s why Barebone exists. Before you write a single line of code, break your idea
+              down to its core truths. The projects that survive won&apos;t be the ones that shipped
+              fastest — they&apos;ll be the ones that were built on something real.
+            </p>
+          </div>
+        </section>
+
         {/* The 4 steps */}
         <section className="space-y-6">
           <div className="space-y-2">
