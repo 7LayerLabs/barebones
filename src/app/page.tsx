@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useTrackVisitor, trackBreakdown, useStats } from "./useTracking";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -57,6 +58,10 @@ export default function Home() {
   const chatInputRef = useRef<HTMLTextAreaElement>(null);
   const editRef = useRef<HTMLTextAreaElement>(null);
 
+  // Tracking
+  useTrackVisitor();
+  const stats = useStats();
+
   useEffect(() => {
     setHistory(loadHistory());
   }, []);
@@ -81,6 +86,7 @@ export default function Home() {
     setHasResult(true);
     setEditing(false);
     setChatMessages([]);
+    trackBreakdown(inputIdea.trim());
 
     let fullResult = "";
     const entryId = generateId();
@@ -498,6 +504,33 @@ Build this step by step. Start with the project setup and core user flow. Ask cl
                   ))}
                 </div>
               </div>
+
+              {/* Live stats */}
+              {!stats.loading && (stats.totalBreakdowns > 0 || stats.totalVisitors > 0) && (
+                <div className="flex items-center justify-center gap-6 pt-2">
+                  {stats.totalBreakdowns > 0 && (
+                    <div className="flex items-center gap-1.5 text-zinc-600">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M7 1L1 13h12L7 1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" fill="none"/>
+                      </svg>
+                      <span className="text-xs font-mono">
+                        <span className="text-indigo-400">{stats.totalBreakdowns}</span> ideas broken down
+                      </span>
+                    </div>
+                  )}
+                  {stats.totalVisitors > 0 && (
+                    <div className="flex items-center gap-1.5 text-zinc-600">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <circle cx="7" cy="5" r="3" stroke="currentColor" strokeWidth="1.2" fill="none"/>
+                        <path d="M2 13c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="currentColor" strokeWidth="1.2" fill="none"/>
+                      </svg>
+                      <span className="text-xs font-mono">
+                        <span className="text-indigo-400">{stats.totalVisitors}</span> visitors
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ) : (
